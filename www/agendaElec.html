@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>AGENDA ELECTRONICA</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Baskerville Old Face, Footlight MT Light, Maiandra GD;
+	font-size: large;
+	color: #990099;
+}
+body {
+	background-image: url(imagenes/antarctique_5.jpg);
+	background-repeat: repeat;
+}
+#Layer1 {
+	position:absolute;
+	left:50px;
+	top:10px;
+	width:668px;
+	height:46px;
+	z-index:1;
+}
+body,td,th {
+	font-family: Baskerville Old Face, Footlight MT Light, Maiandra GD;
+	font-size: large;
+	color: #ECE9D8;}
+.Estilo3 {
+	color: #3366CC;
+	font-weight: bold;
+}
+.Estilo4 {font-size: xx-large; color: #330099; font-weight: bold; font-family: "Baskerville Old Face", "Footlight MT Light", "Maiandra GD"; }
+h1,h2,h3,h4,h5,h6 {
+	font-family: Baskerville Old Face, Footlight MT Light, Maiandra GD;
+}
+.Estilo5 {color: #3366FF}
+.Estilo6 {color: #3366FF; font-family: Arial, Helvetica, sans-serif; }
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.8.10.custom.css">
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui-1.8.10.custom.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.ui.datepicker-es.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$("#fechaNac").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: "yy-mm-dd"
+		});
+	$("#guardar").click(
+	function()
+	{
+		var campos=$("#formulario1").serialize();
+			$("input[type='text']").val("");		
+			$.ajax({
+   			type: "POST",
+   			url: "inserta.php",
+   			data: campos,
+   			success: function(msg){
+     			alert(msg);
+   			}
+ 			}).error(function(){
+				alert("el contacto no se pudo registrar");	
+				});
+
+	});
+});
+</script>
+</head>
+
+<body>
+<h1 align="left" class="Estilo4">AGENDA ELECTRONICA
+<label></label>
+<label>
+<input name="telefono" type="image" id="telefono" src="imagenes/telefono azul.gif" align="right" />
+</label>
+</h1>
+<form id="formulario1" name="formulario1" method="post" action="inserta.php">
+  <table width="504" border="0" align="center" cellpadding="4" cellspacing="0" id="contenedora">
+  <tr>
+  <th width="248" scope="row"><div align="left" class="Estilo3">
+        <ul>
+        <li class="Estilo6">Nombre </li>
+        </ul>
+        </div></th>
+              <td width="228"><span class="Estilo3">
+              <input name="nombre" type="text" id="nombre" size="30" maxlength="30" />
+              </span></td>
+              </tr>
+              <tr>
+              <th scope="row"><div align="left" class="Estilo3">
+        <ul>
+        <li class="Estilo6">Apellido Paterno</li>
+        </ul>
+        </div></th>
+              <td><span class="Estilo3">
+              <input name="apellidoP" type="text" id="apellidoP" size="30" />
+              </span></td>
+              </tr>
+              <tr>
+              <th height="37" scope="row"><div align="left" class="Estilo3">
+        <ul>
+        <li class="Estilo6">Apellido Materno</li>
+        </ul>
+        </div></th>
+              <td><span class="Estilo3">
+              <input name="apellidoM" type="text" id="apellidoM" size="30" />
+              </span></td>
+              </tr>
+              <tr>
+              <th scope="row"><div align="left" class="Estilo3">
+        <ul>
+        <li class="Estilo6">Sexo</li>
+        </ul>
+        </div></th>
+	          <td><span class="Estilo3">
+              <select name="sexo">
+			  <option value="f">Femenino</option>
+			  <option vlaue="m">masculino</option>
+			  </select>
+	          </span></td>
+              </tr>
+              <tr>
+              <th scope="row"><div align="left" class="Estilo3">
+	   
+	    <ul>
+        <li class="Estilo6">Fecha de Nacimiento </li>
+        </ul>
+        </div></th>
+              <td><label><span class="Estilo3">
+              <input name="fechaNac" type="text" id="fechaNac" size="8"  />
+              </span></label></td>
+              </tr>
+              <tr>
+              <th scope="row"><div align="left" class="Estilo3">
+                <ul>
+                  <li class="Estilo6">Teléfono Particular</li>
+                </ul>
+              </div></th>
+              <td><span class="Estilo3">
+                <input name="telPar" type="text" id="telPar" size="10" />
+              </span></td>
+              </tr>
+              <tr>
+              <th scope="row"><div align="left" class="Estilo3">
+                <ul>
+                  <li class="Estilo6">Teléfono Celular</li>
+                </ul>
+              </div></th>
+              <td><span class="Estilo3">
+                <input name="telCel" type="text" id="telCel" size="10" />
+              </span></td>
+              </tr>
+              <tr>
+                <th scope="row"><div align="left" class="Estilo3">
+                  <ul>
+                    <li class="Estilo6">Correo Electrónico </li>
+                  </ul>
+                </div></th>
+                <td><input name="eMail" type="text" value="ejemplo@email.com" /></td>
+              </tr>
+  </table>
+
+
+  <label></label>
+  <label></label>
+  <div align="right">
+    <p>
+      <input name="guardar" type="button" id="guardar" value="Guardar" />
+       <input name="nuevo" type="submit" id="nuevo" value="Nuevo" />
+       <input name="buscar" type="submit" id="buscar" value="Buscar" />
+       <input name="actualizar" type="submit" id="actualizar" value="Actualizar" />
+       <input name="eliminar" type="submit" id="eliminar" value="Eliminar" />
+    </p>
+  </div>
+</form>
+
+</body>
+</html>
