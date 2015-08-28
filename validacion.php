@@ -1,14 +1,12 @@
 <?php
-$conexion=mysql_connect("localhost","root","") or die("No se pudo conectar a la base de datos");
-	mysql_select_db("BD_ControlSistema",$conexion);
+include 'Classes/base.php';
+$base=new base();
 $user=$_POST["user"];
 $pass=$_POST["pass"];
 $consulta="select usuario,contrasena from usuarios where usuario='$user' and contrasena='$pass'";
-$resultado=mysql_query($consulta);
-if($resultado)
-{
-	$num=mysql_num_rows($resultado);
-	if($num>0)
+$arr=$base->consultar($consulta);
+
+	if(count($arr)>0)
 	{
 		session_start();
 		$_SESSION["usuario"]=$user;	
@@ -18,5 +16,5 @@ if($resultado)
 	{
 		echo "no identificado";
 	}
-}
+
 ?>

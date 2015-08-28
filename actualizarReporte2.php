@@ -1,5 +1,7 @@
 <?php
-	include('conexion.php');
+	session_start();
+	include 'Classes/base.php';
+	$base=new base();
 	$params=(object)$_POST;
 	$params->fuga='null';
 $params->reconexion='null';
@@ -31,9 +33,8 @@ switch($params->servicio)
    where 
    folio=$params->folio   
 		";
-	mysql_query($sentencia);
-	$num=mysql_affected_rows($conexion);
-	if($num>0)
+	
+	if($base->ejecutar($sentencia))
 	{
 		echo "Datos Actualizados";
 	}

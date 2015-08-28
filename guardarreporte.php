@@ -1,5 +1,7 @@
 <?php
-include("conexion.php");
+	session_start();
+	include 'Classes/base.php';
+	$base=new base();
 //$objeto=(object)$_POST;
 // asi objeto ya tiene $objeto->nombre y todos los nombres que vienen en post :P
 $nombre=strtoupper($_POST["nombre"]);
@@ -37,9 +39,8 @@ $sentencia="
 insert into reporte_usuario(folio,nombre,apellidoPaterno,apellidoMaterno,servicio,fecha,colonia,calle,no,entrecalles,cuenta,prioridad,referencia,telefono,fuga,reconexion,hora) 
 values ($folio,'$nombre','$apellidop','$apellidom','$servicio','$fecha','$colonia','$calle',$no,'$entrecalles','$cuenta',$prioridad,'$referencia',$telefono,$fuga,$reconexion,now())";
 
-mysql_query($sentencia);
-$filas=mysql_affected_rows($conexion);
-if($filas>=1)
+
+if($base->ejecutar($sentencia))
 {
 	echo "Reporte Registrado";
 }

@@ -1,8 +1,7 @@
 <?php
-$conexion=mysql_connect("localhost","root","") or die("No se pudo conectar a la base de datos");
-	mysql_select_db("BD_ControlSistema",$conexion);
-$consulta="select usuario from usuarios;";
-$resultado=mysql_query($consulta);
+include 'Classes/base.php';
+$base=new base();
+$arr=$base->consultar("select usuario from usuarios");
 ?>
 <html>
 <head>
@@ -161,9 +160,9 @@ $(document).ready(
           <label>
           <select name="user" size="1"  id="seleccion">
         	<?php
-			while($fila=mysql_fetch_array($resultado))
+			foreach($arr as $value)
 			{
-				echo"<option value='$fila[0]'>$fila[0]</option>";
+				echo"<option value='$value->usuario'>$value->usuario</option>";
 			}
 			?>
           </select>

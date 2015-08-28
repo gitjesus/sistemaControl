@@ -1,5 +1,7 @@
 <?php
-include("conexion.php");
+	session_start();
+	include 'Classes/base.php';
+	$base=new base();
 $params=(object)$_GET;
 $query="
 	select ru.*,
@@ -8,11 +10,11 @@ $query="
 	(select nom_reconexion from tipo_reconexion where id_reconexion=ru.reconexion) as reconexion
 	
 	from reporte_usuario ru where folio=$params->folio";
-$result=mysql_query($query);
-$servicio=mysql_fetch_object($result);
+$arr=$base->consultar($query);
+$servicio=$arr[0];
 
 $sentencia="select * from tipo_status";
-$resultado=mysql_query($sentencia);
+$arr=$base->consultar($sentencia);
 
 ?>
 <html>
@@ -175,7 +177,7 @@ case 3:
 					<td>Estatus:</td><td>
 						<select name="status">
 							<?php
-								while($status=mysql_fetch_object($resultado))
+								foreach($arr as $status)
 								{
 									$selected="";
 									if($servicio->status==$status->id_status){

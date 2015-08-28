@@ -1,5 +1,7 @@
 <?php 
-	include("conexion.php");
+	session_start();
+	include 'Classes/base.php';
+	$base=new base();
 	$params=(object)$_GET;
 	$query="
 	select ru.*,
@@ -8,8 +10,8 @@
 
 	
 	from reporte_usuario ru where folio=$params->folio";
-	$result=mysql_query($query);
-	$servicio=mysql_fetch_object($result);
+	$arr=$base->consultar($query);
+	$servicio=$arr[0];
 	
 	$sentencia_servicio="select id_servicio,nom_servicio from tipo_servicio";
 	$sentencia_fuga="select id_fuga,nom_fuga from tipo_fuga";
@@ -335,8 +337,8 @@ show5();
       <td><strong>Tipo de Servicio:</strong></td>
       <td height="38" align="left"><select name="servicio" id="servicio">
     <?php
-		$resultado=mysql_query($sentencia_servicio);
-		while($objeto=mysql_fetch_object($resultado))
+		$arr_s=$base->consultar($sentencia_servicio);
+		foreach($arr_s as $objeto)
 		{
 			if($objeto->id_servicio==$servicio->servicio)
 			{
@@ -352,8 +354,8 @@ show5();
       <td align="left" id="oculta"><label>
         <select name="tipofuga" id="tipofuga">
           <?php
-          	$resultado=mysql_query($sentencia_fuga);
-			while($objeto=mysql_fetch_object($resultado))
+          	$arr_f=$base->consultar($sentencia_fuga);
+			foreach($arr_f as $objeto)
 			{
 				if($objeto->id_fuga==$servicio->fuga)
 				{
@@ -368,8 +370,8 @@ show5();
         <td aling="left" id="oculto2"><lab></label>
         	<select name="tipoconexion" id="tipoconexion">
         		<?php
-        		$resultado=mysql_query($sentencia_reconexion);
-				while($objeto=mysql_fetch_object($resultado))
+        		$arr_r=$base->consultar($sentencia_reconexion);
+				foreach($arr_r as $objeto)
 				{
 					if($objeto->id_reconexion==$servicio->reconexion)
 				{

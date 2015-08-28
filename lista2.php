@@ -1,5 +1,7 @@
 <?php
-include("conexion.php");
+session_start();
+include 'Classes/base.php';
+$base=new base();
 $where="";
 $params=(object)$_GET;
 
@@ -66,8 +68,8 @@ $sentencia="
 		 order by fecha
 		 ";
 $servicios="select id_servicio,Nom_Servicio from tipo_servicio ";
-$result=mysql_query($servicios);
-$resultado=mysql_query($sentencia);
+$arr_s=$base->consultar($servicios);
+$arr=$base->consultar($sentencia);
 
 ?>
 <html>
@@ -291,7 +293,7 @@ $resultado=mysql_query($sentencia);
 			<select name="servicio">
 				<option value="0">TODOS</option>
 			<?php
-				while($servicio=mysql_fetch_object($result))
+				foreach($arr_s as $servicio)
 				{
 					echo "<option value=$servicio->id_servicio>$servicio->Nom_Servicio</option>";
 				}
@@ -347,7 +349,7 @@ $resultado=mysql_query($sentencia);
 			<tbody>
 				
 					<?php
-				while($objeto=mysql_fetch_object($resultado))
+				foreach($arr as $objeto)
 				{
 					$objeto->servicio=utf8_encode($objeto->servicio);//error de acentos
 					//print_r($objeto);

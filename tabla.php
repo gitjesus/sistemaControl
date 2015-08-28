@@ -1,8 +1,11 @@
 <?php 
-	include("conexion.php");
+	session_start();
+	include 'Classes/base.php';
+	$base=new base();
+	
 	$sentencia_folio="select max(folio) as folio from reporte_usuario";
-	$resultado=mysql_query($sentencia_folio);
-	$objeto=mysql_fetch_object($resultado);
+	$arr=$base->consultar($sentencia_folio);
+	$objeto=$arr[0];
 	$folio=$objeto->folio;
 	$folio++;
 	$sentencia_servicio="select id_servicio,nom_servicio from tipo_servicio";
@@ -330,8 +333,8 @@ show5();
       <td><strong>Tipo de Servicio:</strong></td>
       <td height="38" align="left"><select name="servicio" id="servicio">
     <?php
-		$resultado=mysql_query($sentencia_servicio);
-		while($objeto=mysql_fetch_object($resultado))
+		$arr=$base->consultar($sentencia_servicio);
+		foreach($arr as $objeto)
 		{
 			echo " <option value='$objeto->id_servicio'>".($objeto->nom_servicio)."</option> ";
 		}
@@ -340,8 +343,8 @@ show5();
       <td align="left" id="oculta"><label>
         <select name="tipofuga" id="tipofuga">
           <?php
-          	$resultado=mysql_query($sentencia_fuga);
-			while($objeto=mysql_fetch_object($resultado))
+          	$arr=$base->consultar($sentencia_fuga);
+			foreach($arr as $objeto)
 			{
 				echo " <option value='$objeto->id_fuga'>".utf8_encode($objeto->nom_fuga)."</option> "; 
 			}
@@ -349,8 +352,8 @@ show5();
         <td aling="left" id="oculto2"><lab></label>
         	<select name="tipoconexion" id="tipoconexion">
         		<?php
-        		$resultado=mysql_query($sentencia_reconexion);
-				while($objeto=mysql_fetch_object($resultado))
+        		$arr=$base->consultar($sentencia_reconexion);
+				foreach($arr as $objeto)
 				{
 					echo "<option value='$objeto->id_reconexion'>".utf8_encode($objeto->nom_reconexion)."</option>";	
 				}

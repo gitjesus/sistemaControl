@@ -1,9 +1,10 @@
 <?php
-include("conexion.php");
+include 'Classes/base.php';
+$base=new base();
 $sentencia="select count(1)  as conteo from reporte_usuario where status=1 and (curdate()-fecha)>5";
-$resultado=mysql_query($sentencia);
-$num=mysql_num_rows($resultado);
-$objeto=mysql_fetch_object($resultado);
+$arr=$base->consultar($sentencia);
+$num=count($arr);
+$objeto=$arr[0];
 ?>
 <html>
 	<head>

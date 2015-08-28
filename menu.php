@@ -1,5 +1,5 @@
 <?php
-include("conexion.php");
+session_start();
 $user=$_SESSION["usuario"];
 ?>
 <html>
@@ -87,7 +87,7 @@ h1 {
   <center><div class="btn-group">
 
     
-      
+      <button type="button" class="btn btn-success" name="alerts">Notificaciones</button>
       <button type="button" class="btn btn-success" name="tabla">Reporte de Usuarios</button>
       <button type="button" class="btn btn-success" name="lista2"><span class='glyphicon glyphicon-list-alt'></span>&nbsp;Lista de Reportes</button>
       <button type="button" class="btn btn-success" name="listaseguimiento">Seguimiento de Reportes</button>

@@ -1,5 +1,7 @@
 <?php
-	include("conexion.php");
+	session_start();
+	include 'Classes/base.php';
+	$base=new base();
 	$params=(object)$_POST;
 	$condiciones="";
 	if($params->colonia!="")
@@ -38,13 +40,10 @@
 	
 	)";
 	
-	@$result=mysql_query($sentencia);
-	$arr=array();
-	$arr['folios']=mysql_num_rows($result);
-	while($fila=@mysql_fetch_object($result))
-	{
-		$arr[]=$fila;
-	}
+	@$arr=$base->consultar($sentencia);
+	
+	$arr['folios']=count($arr);
+	
 	echo json_encode($arr);
 	
 ?>

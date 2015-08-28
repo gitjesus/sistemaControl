@@ -1,5 +1,7 @@
 <?php
-include("conexion.php");
+session_start();
+include 'Classes/base.php';
+$base=new base();
 $params=(object)$_POST;
 $font="";
 if( isset($params->nombreFontanero)){
@@ -30,7 +32,7 @@ $query="
 	$font
 	";
 
-$result=mysql_query($query);
+$arr=$base->consultar($query);
 
 
 ?>
@@ -181,7 +183,7 @@ $result=mysql_query($query);
 			</thead>
 			<tbody>
 				<?php 
-					while($servicio=mysql_fetch_object($result))
+					foreach($arr as $servicio)
 					{
 						switch (intval($servicio->status))
 					{
