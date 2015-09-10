@@ -1,4 +1,5 @@
 <?php
+
 include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 	 class base
 	{
@@ -28,6 +29,9 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 						mysql_select_db("$this->schema",$conexion);
 					break;
 				case 'mssql':
+						$conexion=mssql_pconnect("$this->host","$this->user","$this->pass");
+					echo mssql_get_last_message();
+						mssql_select_db("$this->schema",$conexion);
 					break;	
 				
 			}
@@ -38,17 +42,34 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			$arr=array();
 			$this->conectar();
 			
-			$resultado=mysql_query($sentencia);
-			while($fila=mysql_fetch_object($resultado))
+			switch($this->db)
 			{
-				$arr[]=$fila;
+			case 'mysql':
+				$resultado=mysql_query($sentencia);
+				while($fila=mysql_fetch_object($resultado))
+				{
+					$arr[]=$fila;
+				}
+				
+			break;	
+			case 'mssql':
+					$resultado=mssql_query($sentencia);
+				while($fila=mssql_fetch_object($resultado))
+				{
+					$arr[]=$fila;
+				}
+				
+			break;
 			}
-			return $arr;
+			
 		}
 		
 		public function ejecutar($sentencia)
 		{
-			$this->conectar();
+			switch($this->db)
+			{
+				case 'mysql':
+					$this->conectar();
 			mysql_query($sentencia);
 			$num=mysql_affected_rows($conexion);
 			if($num>0)
@@ -58,6 +79,21 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			else {
 				return false;
 			}
+					break;
+				case 'mssql':
+					$this->conectar();
+			mssql_query($sentencia);
+			$num=mssql_affected_rows($conexion);
+			if($num>0)
+			{
+				return true;
+			}
+			else {
+				return false;
+			}
+					break;	
+			}
+			
 			
 			
 		}

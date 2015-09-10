@@ -1,7 +1,6 @@
 <?php
 session_start();
 $datos=(object)$_SESSION['datos'];
-
 /**
  * PHPExcel
  *
@@ -91,13 +90,13 @@ $objPHPExcel->setActiveSheetIndex(0)
 /*
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A4', 'Miscellaneous glyphs')
-            ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+            ->setCellValue('A5', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
 */
 // Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('reporte');
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
-// Redirect output to a client’s web browser (Excel5)
+// Redirect output to a clientï¿½s web browser (Excel5)
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="reporte.xls"');
 header('Cache-Control: max-age=0');

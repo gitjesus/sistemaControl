@@ -88,26 +88,22 @@ $arr=$base->consultar($query);
 			});
 			
 			$("#btn-exportar").click(function() {
-                var titulos=new Array();
-				var filas=new Array();
+				var reportes=new Array();
 
-				$("#tabla_lista thead tr th").each(function(index, element) {
-						titulos.push($(element).text());
-                });
+				
 				
 				$("#tabla_lista tbody tr").each(function(index, element) {
-					var fila=new Array();
-					$(element).find("td").each(function(i,e)
-					{
-							fila.push($(e).text());
-					});
-					filas.push(fila);
+					
+										
+				reportes.push($(element).find("td:first").text());
+					
+					
 					
                 });
 				var excel={
-					"desde": 'Seguimiento de Reportes',
-					"titulo": titulos,
-					"filas": filas
+					
+					"reportes": reportes,
+					"desde": 'seguimiento de reportes'
 				};
 				
 				$.ajax(
