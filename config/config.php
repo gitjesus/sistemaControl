@@ -1,7 +1,7 @@
 <?php
 
 	define('db','mssql');
-	define('host','http://SQL5002.Smarterasp.net,1433');
+	define('host','208.118.63.9');
 	define('port','');
 	define('schema','DB_9D80D3_ControlSistema');
 	define('user','DB_9D80D3_ControlSistema_admin');
