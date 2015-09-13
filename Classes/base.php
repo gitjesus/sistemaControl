@@ -30,7 +30,7 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 					break;
 				case 'mssql':
 						$conexion=mssql_pconnect("$this->host","$this->user","$this->pass");
-					echo mssql_get_last_message();
+					
 						mssql_select_db("$this->schema",$conexion);
 					break;	
 				
