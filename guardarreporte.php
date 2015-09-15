@@ -48,5 +48,4 @@ else
 {
 	echo "Reporte no Registrado";
 }
-mysql_close(); 
 ?>
