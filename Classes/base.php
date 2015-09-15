@@ -8,7 +8,8 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 		private $port;
 		private $user;
 		private $pass;
-		private $schema;		
+		private $schema;
+		private $conexion;		
 		
 		public function __construct()
 		{
@@ -25,11 +26,11 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			switch($this->db)
 			{
 				case 'mysql':
-						$conexion=mysql_connect("$this->host","$this->user","$this->pass") or die("No se pudo conectar a la base de datos");
+						$this->conexion=mysql_connect("$this->host","$this->user","$this->pass") or die("No se pudo conectar a la base de datos");
 						mysql_select_db("$this->schema",$conexion);
 					break;
 				case 'mssql':
-						$conexion=mssql_pconnect("$this->host","$this->user","$this->pass");
+						$this->conexion=mssql_connect("$this->host","$this->user","$this->pass");
 					
 						mssql_select_db("$this->schema",$conexion);
 					break;	
@@ -61,7 +62,7 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 				
 			break;
 			}
-			
+			return $arr;
 		}
 		
 		public function ejecutar($sentencia)
@@ -71,7 +72,7 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 				case 'mysql':
 					$this->conectar();
 			mysql_query($sentencia);
-			$num=mysql_affected_rows($conexion);
+			$num=mysql_affected_rows($this->conexion);
 			if($num>0)
 			{
 				return true;
@@ -83,7 +84,7 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 				case 'mssql':
 					$this->conectar();
 			mssql_query($sentencia);
-			$num=mssql_affected_rows($conexion);
+			$num=mssql_rows_affected($this->conexion);
 			if($num>0)
 			{
 				return true;
@@ -96,6 +97,32 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			
 			
 			
+		}
+		
+		public function ahora()
+		{
+			switch($this->db)
+			{
+				case 'mysql':
+						return "now()";
+					break;
+				case 'mssql':
+						return "getdate()";
+					break;	
+			}
+		}
+		
+		public function diferenciaFechas($ahora,$anterior)
+		{
+			switch($this->db)
+			{
+				case 'mysql':
+						return "$ahora-$anterior";
+					break;
+				case 'mssql':
+						return "datediff(dd,$ahora,$anterior)";
+					break;	
+			}
 		}
 	}
 ?>

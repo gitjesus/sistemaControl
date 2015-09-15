@@ -1,7 +1,7 @@
 <?php
 include 'Classes/base.php';
 $base=new base();
-$sentencia="select count(1)  as conteo from reporte_usuario where status=1 and (curdate()-fecha)>5";
+$sentencia="select count(1)  as conteo from reporte_usuario where status=1 and (".$base->diferenciaFechas($base->ahora(),'fecha').")>5";
 $arr=$base->consultar($sentencia);
 $num=count($arr);
 $objeto=$arr[0];

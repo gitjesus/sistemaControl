@@ -37,7 +37,7 @@ switch($servicio)
 
 $sentencia="
 insert into reporte_usuario(folio,nombre,apellidoPaterno,apellidoMaterno,servicio,fecha,colonia,calle,no,entrecalles,cuenta,prioridad,referencia,telefono,fuga,reconexion,hora) 
-values ($folio,'$nombre','$apellidop','$apellidom','$servicio','$fecha','$colonia','$calle',$no,'$entrecalles','$cuenta',$prioridad,'$referencia',$telefono,$fuga,$reconexion,now())";
+values ($folio,'$nombre','$apellidop','$apellidom','$servicio','$fecha','$colonia','$calle',$no,'$entrecalles','$cuenta',$prioridad,'$referencia',$telefono,$fuga,$reconexion,".$base->ahora().")";
 
 
 if($base->ejecutar($sentencia))
