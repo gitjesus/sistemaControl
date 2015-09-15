@@ -27,12 +27,12 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			{
 				case 'mysql':
 						$this->conexion=mysql_connect("$this->host","$this->user","$this->pass") or die("No se pudo conectar a la base de datos");
-						mysql_select_db("$this->schema",$conexion);
+						mysql_select_db("$this->schema",$this->conexion);
 					break;
 				case 'mssql':
 						$this->conexion=mssql_connect("$this->host","$this->user","$this->pass");
 					
-						mssql_select_db("$this->schema",$conexion);
+						mssql_select_db("$this->schema",$this->conexion);
 					break;	
 				
 			}
