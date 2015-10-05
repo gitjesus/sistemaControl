@@ -38,7 +38,7 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 						mssql_select_db("$this->schema",$this->conexion);
 					}
 					else {
-						$this->conexion=mssql_connect("$this->host",array( "Database"=>"$this->db", "UID"=>"$this->user", "PWD"=>"$this->pass"));
+						$this->conexion=sqlsrv_connect("$this->host",array( "Database"=>"$this->db", "UID"=>"$this->user", "PWD"=>"$this->pass"));
 					}
 					break;	
 				
