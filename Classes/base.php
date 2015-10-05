@@ -19,6 +19,7 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			$this->user=constant('user');
 			$this->pass=constant('pass');
 			$this->schema=constant('schema');
+			$this->driver=constant('driver');
 		}
 		
 		private function conectar()
@@ -30,9 +31,15 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 						mysql_select_db("$this->schema",$this->conexion);
 					break;
 				case 'mssql':
+					if($this->driver!='sqlsrv')
+					{
 						$this->conexion=mssql_connect("$this->host","$this->user","$this->pass");
 					
 						mssql_select_db("$this->schema",$this->conexion);
+					}
+					else {
+						$this->conexion=mssql_connect("$this->host",array( "Database"=>"$this->db", "UID"=>"$this->user", "PWD"=>"$this->pass"));
+					}
 					break;	
 				
 			}
@@ -54,12 +61,21 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 				
 			break;	
 			case 'mssql':
-					$resultado=mssql_query($sentencia);
+			if($this->driver!='sqlsrv')	
+			{
+				$resultado=mssql_query($sentencia);
 				while($fila=mssql_fetch_object($resultado))
 				{
 					$arr[]=$fila;
 				}
-				
+			}else	
+			{
+				$resultado=sqlsrv_query($this->conexion,$sentencia);
+				while($fila=sqlsrv_fetch_object($resultado))
+				{
+					$arr[]=$fila;
+				}	
+			}
 			break;
 			}
 			return $arr;
@@ -82,15 +98,31 @@ include $_SERVER['DOCUMENT_ROOT']."/sistemaControl/config/config.php";
 			}
 					break;
 				case 'mssql':
-					$this->conectar();
-			mssql_query($sentencia);
-			$num=mssql_rows_affected($this->conexion);
-			if($num>0)
-			{
-				return true;
+			if($this->driver!='sqlsrv')
+			{		
+				$this->conectar();
+				mssql_query($sentencia);
+				$num=mssql_rows_affected($this->conexion);
+				if($num>0)
+				{
+					return true;
+				}
+				else {
+					return false;
+				}
 			}
-			else {
-				return false;
+			else
+			{
+				$this->conectar();
+				$resultado=sqlsrv_query($this->conexion,$sentencia);
+				$num=sqlsrv_rows_affected($resultado);
+				if($num>0)
+				{
+					return true;
+				}
+				else {
+					return false;
+				}	
 			}
 					break;	
 			}
