@@ -1,6 +1,7 @@
 <?php
 session_start();
 $datos=(object)$_SESSION['datos'];
+
 /**
  * PHPExcel
  *
@@ -58,7 +59,7 @@ $styleArray = array(
 $objPHPExcel->getActiveSheet()->mergeCells('A1:F1');	
 $objPHPExcel->getActiveSheet()->getStyle('A1')
     ->getAlignment()->setVertical(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$obj->setCellValueByColumnAndRow(0,1,$datos->desde);
+$obj->setCellValueByColumnAndRow(0,1,'reporte');
 
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 
@@ -71,11 +72,14 @@ foreach($datos->titulo as $key => $value )
 
 foreach($datos->filas as $key => $value )
 {
-	foreach($value as $i => $v )
+	$i=0;
+	foreach($value as $prop => $v )
 	{
+		
 		$obj->setCellValueByColumnAndRow($i,($key+3),$v);
 		
 		$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setAutoSize(true);
+		$i++;
 	}
 }
 #$objPHPExcel->getActiveSheet()->getDefaultColumnDimension()->setWidth(120);

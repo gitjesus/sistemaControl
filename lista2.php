@@ -203,41 +203,26 @@ $arr=$base->consultar($sentencia);
 			$("#btn-exportar").click(
 			function()
 			{
-				var titulos=new Array();
-				var filas=new Array();
-
-				$("#tabla_lista thead tr th").each(function(index, element) {
-					if(index<6)
-						titulos.push($(element).text());
-                });
-				
-				$("#tabla_lista tbody tr").each(function(index, element) {
-					var fila=new Array();
-					$(element).find("td").each(function(i,e)
+				var folios=new Array();
+				$(".detFolio").each(
+					function(i,e)
 					{
-						if(i<6)
-							fila.push($(e).text());
-					});
-					filas.push(fila);
-					
-                });
-				var excel={
-					"desde": "LISTA DE REPORTES",
-					"titulo": titulos,
-					"filas": filas
-				};
-				
-				$.ajax(
-				{
-					url: "jsonXLS.php",
-					data: {'datos': excel},
-					type: 'POST',				
-					success: function(response)
-					{
-						if(response=="ok")
-							window.open('generaXLS.php');
+						var folio=$(e).attr('folio');
+						folios.push(folio);
 					}
-				});
+				);				
+				$.ajax(
+					{
+						url:'jsonXLS.php',
+						data: { datos : folios },
+						type: 'post',
+						success: function(response)
+						{
+							if(response=='ok')
+								window.open('generaXLS.php');
+						}
+					}
+				);
 			});
 			
 			$("#tabla").accordion();
@@ -354,8 +339,8 @@ $arr=$base->consultar($sentencia);
 					$objeto->servicio=utf8_encode($objeto->servicio);//error de acentos
 					//print_r($objeto);
 					echo 	"
-					<tr class='".($objeto->prioridad?'danger':'')."'>
-					<td><a href='detalleServicio.php?folio=$objeto->folio' class='detFolio'>#$objeto->folio</a></td><td>$objeto->nombre $objeto->apellidoPaterno $objeto->apellidoMaterno</td><td >$objeto->colonia $objeto->calle $objeto->no </td><td>$objeto->servicio  
+					<tr class='".($objeto->prioridad?'danger':'')."'>				
+					<td><a href='detalleServicio.php?folio=$objeto->folio' class='detFolio' folio='$objeto->folio'>#$objeto->folio</a></td><td>$objeto->nombre $objeto->apellidoPaterno $objeto->apellidoMaterno</td><td >$objeto->colonia $objeto->calle $objeto->no </td><td>$objeto->servicio  
 					
 					".
 					( $objeto->fuga!=""?" DE $objeto->fuga":'').( $objeto->reconexion!=""?" POR  $objeto->reconexion":'')

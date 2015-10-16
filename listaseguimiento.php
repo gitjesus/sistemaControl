@@ -31,7 +31,7 @@ $query="
 	where eliminado=1 
 	$font
 	";
-
+	
 $arr=$base->consultar($query);
 
 
@@ -88,28 +88,24 @@ $arr=$base->consultar($query);
 			});
 			
 			$("#btn-exportar").click(function() {
-				var reportes=new Array();
+				var folios=new Array();
 
 				
 				
-				$("#tabla_lista tbody tr").each(function(index, element) {
+				$(".folio").each(function(index, element) {
 					
 										
-				reportes.push($(element).find("td:first").text());
+				folios.push($(element).attr('folio'));
 					
 					
 					
                 });
-				var excel={
-					
-					"reportes": reportes,
-					"desde": 'seguimiento de reportes'
-				};
+				
 				
 				$.ajax(
 				{
 					url: "jsonXLS.php",
-					data: {'datos': excel},
+					data: {'datos': folios},
 					type: 'POST',				
 					success: function(response)
 					{
@@ -197,7 +193,7 @@ default:
 	$servicio->status='NO ESPECIFICADO';						
 					}
 						echo "<tr>
-							<td class='text-center'><a href='detalleServicio.php?folio=$servicio->folio' class='folio'>$servicio->folio</a></td>
+							<td class='text-center'><a href='detalleServicio.php?folio=$servicio->folio' class='folio' folio='$servicio->folio'>$servicio->folio</a></td>
 							<td>$servicio->nom_servicio</td>
 							<td>$servicio->fecha</td>
 							<td>$servicio->status</td>
