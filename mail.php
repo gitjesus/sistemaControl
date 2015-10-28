@@ -13,12 +13,12 @@ if($num>0)
 	$mail->IsSMTP();
 	$mail->SMTPAuth = true;
 	$mail->SMTPSecure = "ssl";
-	$mail->Host = "mail.ifxa.mx";
+	$mail->Host = "mail.caev.mx";
 	$mail->Port = 465;
-	$mail->Username = "admin@ifxa.mx";
+	$mail->Username = "admin@caev.mx";
 	$mail->Password = "instituto";
-	$mail->From = "admin@ifxa.mx";
-	$mail->FromName = "Servicios Tecnologicos sanchez velasco";
+	$mail->From = "admin@caev.mx";
+	$mail->FromName = "caev";
 	$mail->Subject = "Recuperación de contraseña";
 	$mail->AltBody = "Recuperación de contraseña";
 	$mail->MsgHTML("Su contraseña es... <br><b>$fila[1]</b>.");

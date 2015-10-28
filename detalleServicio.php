@@ -94,13 +94,16 @@ $arr=$base->consultar($sentencia);
     {
     	z-index: 999;
     }
+#imprimir{
+    height: 380px;
+}
     </style>
 	</head>	
 	<body>
 		<br>
 	<div align="center" id="tabla">
 	<h3><a href="#">SERVICIO </a></h3>
-	<div>	
+	<div id="imprimir">	
 		<table class="table table-bordered text-center">
 			<tr>
 				<th>FOLIO</th><td><?php echo $servicio->folio?></td><th>USUARIO REPORTA</th><td><?php echo $servicio->nombre.' '.$servicio->apellidoPaterno.' '.$servicio->apellidoMaterno  ?></td>
@@ -136,13 +139,18 @@ case 3:
 	break;
 						
 					}?></td>
-                <th>OBSERVACIONES</th>
+                
+				<th>TELEFONO</th>
+				<td><?php echo $servicio->telefono?></td>
+				<th>OBSERVACIONES</th>
+				<td><?php echo $servicio->observacion?></td>
 				
-				<td colspan="3"><?php echo $servicio->observacion?></td>
+				
 </tr>
 			</tr>
 			<tr>
-				<td colspan="6" class="text-center">&nbsp;<input type="button" value="Agregar Seguimiento" id="btnAgregaSeguimiento" class="btn btn-success" /></td>
+				<td colspan="4" class="text-center">&nbsp;<input type="button" value="Agregar Seguimiento" id="btnAgregaSeguimiento" class="btn btn-success" /></td>
+				<td> <input type="button" class="btn btn-success" value="Imprimir" onClick="window.print()"></td><td></td>
 			</tr>
 		</table>
 	</div>

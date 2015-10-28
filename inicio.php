@@ -14,7 +14,7 @@ $arr=$base->consultar("select usuario from usuarios");
 	font-weight: bold;
 }
 .Estilo5 {font-size: 30px}
-body { background-image:url(http://localhost/SistemaPagos/agua.jpg)
+body { background-image:url(http://192.168.0.2:8080/sistemaControl/fondo.png)
 }
 .Estilo24 {color: #0000FF}
 .Estilo25 {
@@ -34,17 +34,21 @@ a:active {
 	color: #000099;
 }
 a:link {
-	color: #0000CC;
+	color: #FCFCFF;
 }
 a:visited {
-	color: #0033CC;
+	color: #FCFCFF;
 }
 a:hover {
-	color: #0000CC;
+	color: #FFFFFF;
 }
 .Estilo38 {font-size: 24px;
 	font-weight: bold;
 	color: #000000;
+}
+tr.spaceUnder > td
+{
+  padding-bottom: 2em;
 }
 .Estilo2 {font-family: Georgia, "Times New Roman", Times, serif}
 -->
@@ -155,6 +159,7 @@ $(document).ready(
       	</tr>
       	<td colspan="2"  class="text-center">
       		<table style="margin: auto;">
+			<tr class="spaceUnder">
         <td ><span class="Estilo36">Usuario</span><span class="Estilo37"> : </span></td>
         <td >
           <label>
@@ -187,7 +192,7 @@ $(document).ready(
        </tr>
        <tr>
           
-            <td colspan="2"><div align="left"><a href="#" class="Estilo36" id="click">&iquest;Olvido su Contrase&ntilde;a? </a></div></td>
+           
           
        
       </tr>

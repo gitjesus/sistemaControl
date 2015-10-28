@@ -240,7 +240,7 @@ $arr=$base->consultar($sentencia);
 		#filtros
 		{
 			margin: auto;
-			width: 25%;
+			width: 30%;
 		}
 		
 		#trServicio

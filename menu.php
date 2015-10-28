@@ -5,7 +5,7 @@ $user=$_SESSION["usuario"];
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>caev</title>
+    <title>CAEV</title>
     <link type="text/css" href="menu.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   
@@ -86,7 +86,10 @@ h1 {
 
   <center><div class="btn-group">
 
-    
+     <?php
+   if ($_SESSION["usuario"]=="Secretaria" || $_SESSION["usuario"]=="Administrador"|| $_SESSION["usuario"]=="Subdirector de OyM")
+	 {  
+   ?> 
       <button type="button" class="btn btn-success" name="alerts">Notificaciones</button>
       <button type="button" class="btn btn-success" name="tabla">Reporte de Usuarios</button>
       <button type="button" class="btn btn-success" name="lista2"><span class='glyphicon glyphicon-list-alt'></span>&nbsp;Lista de Reportes</button>
@@ -95,9 +98,28 @@ h1 {
       <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
       &nbsp;<?php echo $_SESSION["usuario"]?> <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Cambiar Contraseña</a></li>
         <li><a href="cerrarsesion.php">Salir</a></li>
       </ul>
+	   <?php
+	 }
+	 ?>
+	 <?php
+   if ($_SESSION["usuario"]=="Jefe de Operacion" || $_SESSION["usuario"]=="Jefe de OyM" || $_SESSION["usuario"]=="Tecnico de Maniobra")
+	 {  
+   ?> 
+    <button type="button" class="btn btn-success" name="alerts">Notificaciones</button>
+      <button type="button" class="btn btn-success" name="lista3"><span class='glyphicon glyphicon-list-alt'></span>&nbsp;Lista de Reportes</button>
+      <button type="button" class="btn btn-success" name="listaseguimiento2">Seguimiento de Reportes</button>
+    <div class="btn-group">
+      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+      &nbsp;<?php echo $_SESSION["usuario"]?> <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+     
+        <li><a href="cerrarsesion.php">Salir</a></li>
+      </ul>
+	  <?php
+	 }
+	 ?>
     </div>
   </div>
   </center>

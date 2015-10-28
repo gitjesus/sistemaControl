@@ -27,6 +27,9 @@
 		width: 500px;
 		background-color:#00FF99;
 	}
+	#tabla2{
+    height: 450px;
+}
 
 
 </style>
@@ -311,7 +314,7 @@ show5();
 <center>
 <div align="center" id="tabla">
 <h3><a href="#">REPORTE DE USUARIO</a></h3>
-<div>
+<div id="tabla2">
 
   <form id="formulario" name="f">
   <table width="639">
