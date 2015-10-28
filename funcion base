@@ -1,0 +1,13 @@
+use bd_controlsistema;
+ delimiter //
+
+create function obtenerFolio() returns INT 
+begin
+	declare folior int;
+	
+	select folio into folior from folios for update;
+	
+	update folios set folio=folior+1;
+	
+	return folior;
+end;
