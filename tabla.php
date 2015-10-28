@@ -3,7 +3,7 @@
 	include 'Classes/base.php';
 	$base=new base();
 	
-	$sentencia_folio="select max(folio) as folio from reporte_usuario";
+	$sentencia_folio="select obtenerFolio() as folio";
 	$arr=$base->consultar($sentencia_folio);
 	$objeto=$arr[0];
 	$folio=$objeto->folio;
