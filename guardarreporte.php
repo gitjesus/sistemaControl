@@ -36,16 +36,19 @@ switch($servicio)
 
 
 $sentencia="
-insert into reporte_usuario(folio,nombre,apellidoPaterno,apellidoMaterno,servicio,fecha,colonia,calle,no,entrecalles,cuenta,prioridad,referencia,telefono,fuga,reconexion,hora) 
-values ($folio,'$nombre','$apellidop','$apellidom','$servicio','$fecha','$colonia','$calle',$no,'$entrecalles','$cuenta',$prioridad,'$referencia',$telefono,$fuga,$reconexion,".$base->ahora().")";
+insert into reporte_usuario(nombre,apellidoPaterno,apellidoMaterno,servicio,fecha,colonia,calle,no,entrecalles,cuenta,prioridad,referencia,telefono,fuga,reconexion,hora) 
+values ('$nombre','$apellidop','$apellidom','$servicio','$fecha','$colonia','$calle',$no,'$entrecalles','$cuenta',$prioridad,'$referencia',$telefono,$fuga,$reconexion,".$base->ahora().")";
 
 
 if($base->ejecutar($sentencia))
 {
-	echo "Reporte Registrado";
+	$arr['id']=mysql_insert_id();
+	$arr['msj']="Reporte Registrado";
 }
 else
 {
-	echo "Reporte no Registrado";
+	$arr['msj']="Reporte No Registrado";
 }
+
+echo json_encode($arr);
 ?>

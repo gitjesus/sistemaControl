@@ -2,12 +2,7 @@
 	session_start();
 	include 'Classes/base.php';
 	$base=new base();
-	
-	$sentencia_folio="select obtenerFolio() as folio";
-	$arr=$base->consultar($sentencia_folio);
-	$objeto=$arr[0];
-	$folio=$objeto->folio;
-	$folio++;
+	$folio="";
 	$sentencia_servicio="select id_servicio,nom_servicio from tipo_servicio";
 	$sentencia_fuga="select id_fuga,nom_fuga from tipo_fuga";
 	$sentencia_reconexion="select id_reconexion,nom_reconexion from tipo_reconexion";
@@ -190,8 +185,9 @@ $(document).ready(function()
    			type: "POST",
    			url: "guardarreporte.php",
    			data: campos,
+   			dataType: 'json',
    			success: function(msg){
-     			$("#dialogo").html(msg);
+     			$("#dialogo").html(msg.msj+"<br> El folio del reporte es: "+msg.id);
 			$("#dialogo").dialog("open");
    			}
  			}).error(function(){
@@ -325,7 +321,7 @@ show5();
       <td width="151"  align="center"><input type="text" name="apellidom" size="20" /></td>
       </tr>
     <tr>
-      <td align="center"><strong>No. Reporte</strong></td>
+      <td align="center"><strong></strong></td>
       <td align="center"><strong>Nombre(s)</strong></td>
       <td align="center"><strong>Apellido paterno</strong></td>
       <td align="center"><strong>Apellido materno</strong></td>
