@@ -1,4 +1,6 @@
 <?php 
+
+
 	session_start();
 	include 'Classes/base.php';
 	$base=new base();
